@@ -1,4 +1,4 @@
-# CSE 360 Team Project Phase 2
+# CSE 360 Team Project Phase 3
 
 ## Overview
 Phase 3 builds on the Discussion Board Q&A system, adding the new reviewer role, ways for users to apply for this role, and a way for instructors to review these applications with the users past posts.
