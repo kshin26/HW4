@@ -1,12 +1,13 @@
 # CSE 360 Team Project Phase 3
 
 ## Overview
-Phase 3 builds on the Discussion Board Q&A system, adding the new reviewer role, ways for users to apply for this role, and a way for instructors to review these applications with the users past posts.
+Phase 3 builds on the Discussion Board Q&A system, adding the new reviewer role, ways for users to apply for this role, and a way for instructors to review these applications with the users past posts. Added functionality for a private messaging system between students and reviewers.
 
 ## Key Changes
 - **Reviewer Role**
 - **Reviewer Application Dashboard**
 - **Ability for users to request the reviewer role**
+- **Ability for users to private message each other**
 ## New User Stories
 - Reviewers to create, view, update, and delete reviews of questions and potential answers.
 - Reviewers to scan a list of the reviews they wrote, see, and reply to private messages from the authors of questions or answers they have reviewed.
