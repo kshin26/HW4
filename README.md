@@ -20,3 +20,5 @@ HW4 builds on the Discussion Board Q&A system, adding the new staff role with co
 - Staff to communicate with instructors and other staff members through a persisted messaging system.
 - Staff to manage user accounts and system configurations with full CRUD operations.
 - Staff to generate and view system logs for auditing and monitoring purposes.
+
+https://youtu.be/4G4dd4UqNzk?si=In2i1r1UpO0Xu-dL
