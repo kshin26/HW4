@@ -1,21 +1,22 @@
-# CSE 360 Team Project Phase 3
+# CSE 360 HW4 - Staff Role Implementation
 
 ## Overview
-Phase 3 builds on the Discussion Board Q&A system, adding the new reviewer role, ways for users to apply for this role, and a way for instructors to review these applications with the users past posts. Added functionality for a private messaging system between students and reviewers.
+HW4 builds on the Discussion Board Q&A system, adding the new staff role with comprehensive CRUD functionalities for system management. Added functionality for staff communication, content moderation, and task management.
 
 ## Key Changes
-- **Reviewer Role**
-- **Reviewer Application Dashboard**
-- **Ability for users to request the reviewer role**
-- **Ability for users to private message each other**
-- **Trusted Reviewers System with personalized filtering and management**
-- **Ability for users to create and manage reviews of questions and answers**
-## New User Stories
-- Reviewers to create, view, update, and delete reviews of questions and potential answers.
-- Reviewers to scan a list of the reviews they wrote, see, and reply to private messages from the authors of questions or answers they have reviewed.
-- Students to read reviews of potential answers they have found.
-- Students to engage in a private exchange with a reviewer.
-- Students to establish and maintain a list of trusted reviewers and a separate search that only produces reviews from trusted reviewers.
-- Students to add a weightage value to each reviewer that determines the order of multiple reviews that are displayed, so the most likely to be useful is on top.
-- Students to request permission to play the role of a reviewer.
-- Instructors to review the questions and answers a specific student has written to determine whether to grant a student’s request to be a reviewer.
+- **Staff Role Implementation**
+- **Staff Communication System**
+- **Content Moderation Dashboard**
+- **Task Management Board**
+- **Private Feedback System**
+- **Flagging and Notes System**
+- **Staff Messaging and Logging**
+
+## New User Stories (Staff Role)
+- Staff to create, view, update, and delete system content and user management operations.
+- Staff to review questions, answers, and private feedback with moderation capabilities.
+- Staff to flag inappropriate content and add administrative notes to flagged items.
+- Staff to maintain a lightweight task board for tracking administrative duties.
+- Staff to communicate with instructors and other staff members through a persisted messaging system.
+- Staff to manage user accounts and system configurations with full CRUD operations.
+- Staff to generate and view system logs for auditing and monitoring purposes.
