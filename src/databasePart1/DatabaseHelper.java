@@ -15,16 +15,16 @@ import application.User;
  */
 public class DatabaseHelper {
 
-	// JDBC driver name and database URL 
-	static final String JDBC_DRIVER = "org.h2.Driver";   
-	static final String DB_URL = "jdbc:h2:~/FoundationDatabase";  
+	// JDBC driver name and database URL
+	static final String JDBC_DRIVER = "org.h2.Driver";
+	static final String DB_URL = "jdbc:h2:~/FoundationDatabase";
 
-	//  Database credentials 
-	static final String USER = "sa"; 
-	static final String PASS = ""; 
+	//  Database credentials
+	static final String USER = "sa";
+	static final String PASS = "";
 
 	private Connection connection = null;
-	private Statement statement = null; 
+	private Statement statement = null;
 	//	PreparedStatement pstmt
 
 	public void connectToDatabase() throws SQLException {
@@ -32,7 +32,7 @@ public class DatabaseHelper {
 			Class.forName(JDBC_DRIVER); // Load the JDBC driver
 			System.out.println("Connecting to database...");
 			connection = DriverManager.getConnection(DB_URL, USER, PASS);
-			statement = connection.createStatement(); 
+			statement = connection.createStatement();
 			// You can use this command to clear the database and restart from fresh.
 			//statement.execute("DROP ALL OBJECTS");
 
@@ -49,12 +49,26 @@ public class DatabaseHelper {
 				+ "password VARCHAR(255), "
 				+ "role VARCHAR(20))";
 		statement.execute(userTable);
-		
+
 		// Create the invitation codes table
 	    String invitationCodesTable = "CREATE TABLE IF NOT EXISTS InvitationCodes ("
 	            + "code VARCHAR(10) PRIMARY KEY, "
 	            + "isUsed BOOLEAN DEFAULT FALSE)";
 	    statement.execute(invitationCodesTable);
+
+    	// HW4 addition: ensure default Staff account exists (role 'staff') and set password to Karson123.
+    	// Use MERGE so we update or insert as needed (H2 supports MERGE INTO)
+    	try {
+    		String upsert = "MERGE INTO cse360users (userName, password, role) KEY(userName) VALUES (?, ?, ?)";
+    		try (PreparedStatement pstmt = connection.prepareStatement(upsert)) {
+    			pstmt.setString(1, "Staff");
+    			pstmt.setString(2, "Karson123");
+    			pstmt.setString(3, "staff");
+    			pstmt.executeUpdate();
+    		}
+    	} catch (SQLException se) {
+    		// silent failure acceptable; staff account may not be available
+    	}
 	}
 
 
@@ -91,15 +105,15 @@ public class DatabaseHelper {
 			}
 		}
 	}
-	
+
 	// Checks if a user already exists in the database based on their userName.
 	public boolean doesUserExist(String userName) {
 	    String query = "SELECT COUNT(*) FROM cse360users WHERE userName = ?";
 	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-	        
+
 	        pstmt.setString(1, userName);
 	        ResultSet rs = pstmt.executeQuery();
-	        
+
 	        if (rs.next()) {
 	            // If the count is greater than 0, the user exists
 	            return rs.getInt(1) > 0;
@@ -109,14 +123,14 @@ public class DatabaseHelper {
 	    }
 	    return false; // If an error occurs, assume user doesn't exist
 	}
-	
+
 	// Retrieves the role of a user from the database using their UserName.
 	public String getUserRole(String userName) {
 	    String query = "SELECT role FROM cse360users WHERE userName = ?";
 	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
 	        pstmt.setString(1, userName);
 	        ResultSet rs = pstmt.executeQuery();
-	        
+
 	        if (rs.next()) {
 	            return rs.getString("role"); // Return the role if user exists
 	        }
@@ -125,7 +139,7 @@ public class DatabaseHelper {
 	    }
 	    return null; // If no user exists or an error occurs
 	}
-	
+
 	// Generates a new invitation code and inserts it into the database.
 	public String generateInvitationCode() {
 	    String code = UUID.randomUUID().toString().substring(0, 4); // Generate a random 4-character code
@@ -140,7 +154,7 @@ public class DatabaseHelper {
 
 	    return code;
 	}
-	
+
 	// Validates an invitation code to check if it is unused.
 	public boolean validateInvitationCode(String code) {
 	    String query = "SELECT * FROM InvitationCodes WHERE code = ? AND isUsed = FALSE";
@@ -157,7 +171,7 @@ public class DatabaseHelper {
 	    }
 	    return false;
 	}
-	
+
 	// Marks the invitation code as used in the database.
 	private void markInvitationCodeAsUsed(String code) {
 	    String query = "UPDATE InvitationCodes SET isUsed = TRUE WHERE code = ?";
@@ -171,16 +185,16 @@ public class DatabaseHelper {
 
 	// Closes the database connection and statement.
 	public void closeConnection() {
-		try{ 
-			if(statement!=null) statement.close(); 
-		} catch(SQLException se2) { 
+		try{
+			if(statement!=null) statement.close();
+		} catch(SQLException se2) {
 			se2.printStackTrace();
-		} 
-		try { 
-			if(connection!=null) connection.close(); 
-		} catch(SQLException se){ 
-			se.printStackTrace(); 
-		} 
+		}
+		try {
+			if(connection!=null) connection.close();
+		} catch(SQLException se){
+			se.printStackTrace();
+		}
 	}
 
 }
